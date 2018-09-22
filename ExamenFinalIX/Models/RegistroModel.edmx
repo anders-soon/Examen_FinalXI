@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PearModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="Id_color" />
+          </Key>
+          <Property Name="Id_color" Type="int" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Gama">
+          <Key>
+            <PropertyRef Name="Id_gama" />
+          </Key>
+          <Property Name="Id_gama" Type="int" Nullable="false" />
+          <Property Name="gama" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="Id_pais" />
+          </Key>
+          <Property Name="Id_pais" Type="int" Nullable="false" />
+          <Property Name="pais" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Registro">
+          <Key>
+            <PropertyRef Name="Id_registro" />
+          </Key>
+          <Property Name="Id_registro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaHora" Type="date" />
+          <Property Name="telefono" Type="int" />
+          <Property Name="total" Type="money" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="Id_Telefono" />
+          </Key>
+          <Property Name="Id_Telefono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gama" Type="int" />
+          <Property Name="color" Type="int" />
+          <Property Name="pais" Type="int" />
+        </EntityType>
+        <Association Name="Fk_color">
+          <End Role="Color" Type="Self.Color" Multiplicity="0..1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="Id_color" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_gama">
+          <End Role="Gama" Type="Self.Gama" Multiplicity="0..1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gama">
+              <PropertyRef Name="Id_gama" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="gama" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="Id_pais" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Telefono">
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="0..1" />
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Telefono">
+              <PropertyRef Name="Id_Telefono" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="telefono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PearModelStoreContainer">
+          <EntitySet Name="Color" EntityType="Self.Color" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gama" EntityType="Self.Gama" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registro" EntityType="Self.Registro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Fk_color" Association="Self.Fk_color">
+            <End Role="Color" EntitySet="Color" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_gama" Association="Self.Fk_gama">
+            <End Role="Gama" EntitySet="Gama" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_pais" Association="Self.Fk_pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Telefono" Association="Self.Fk_Telefono">
+            <End Role="Telefono" EntitySet="Telefono" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PearModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="Id_color" />
+          </Key>
+          <Property Name="Id_color" Type="Int32" Nullable="false" />
+          <Property Name="color1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Telefono" Relationship="Self.Fk_color" FromRole="Color" ToRole="Telefono" />
+        </EntityType>
+        <EntityType Name="Gama">
+          <Key>
+            <PropertyRef Name="Id_gama" />
+          </Key>
+          <Property Name="Id_gama" Type="Int32" Nullable="false" />
+          <Property Name="gama1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Telefono" Relationship="Self.Fk_gama" FromRole="Gama" ToRole="Telefono" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="Id_pais" />
+          </Key>
+          <Property Name="Id_pais" Type="Int32" Nullable="false" />
+          <Property Name="pais1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Telefono" Relationship="Self.Fk_pais" FromRole="Pais" ToRole="Telefono" />
+        </EntityType>
+        <EntityType Name="Registro">
+          <Key>
+            <PropertyRef Name="Id_registro" />
+          </Key>
+          <Property Name="Id_registro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaHora" Type="DateTime" Precision="0" />
+          <Property Name="telefono" Type="Int32" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Telefono1" Relationship="Self.Fk_Telefono" FromRole="Registro" ToRole="Telefono" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="Id_Telefono" />
+          </Key>
+          <Property Name="Id_Telefono" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gama" Type="Int32" />
+          <Property Name="color" Type="Int32" />
+          <Property Name="pais" Type="Int32" />
+          <NavigationProperty Name="Color1" Relationship="Self.Fk_color" FromRole="Telefono" ToRole="Color" />
+          <NavigationProperty Name="Gama1" Relationship="Self.Fk_gama" FromRole="Telefono" ToRole="Gama" />
+          <NavigationProperty Name="Pais1" Relationship="Self.Fk_pais" FromRole="Telefono" ToRole="Pais" />
+          <NavigationProperty Name="Registro" Relationship="Self.Fk_Telefono" FromRole="Telefono" ToRole="Registro" />
+        </EntityType>
+        <Association Name="Fk_color">
+          <End Role="Color" Type="Self.Color" Multiplicity="0..1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="Id_color" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_gama">
+          <End Role="Gama" Type="Self.Gama" Multiplicity="0..1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gama">
+              <PropertyRef Name="Id_gama" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="gama" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="Id_pais" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Telefono">
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="0..1" />
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Telefono">
+              <PropertyRef Name="Id_Telefono" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="telefono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PearEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Color" EntityType="Self.Color" />
+          <EntitySet Name="Gama" EntityType="Self.Gama" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" />
+          <EntitySet Name="Registro" EntityType="Self.Registro" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" />
+          <AssociationSet Name="Fk_color" Association="Self.Fk_color">
+            <End Role="Color" EntitySet="Color" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_gama" Association="Self.Fk_gama">
+            <End Role="Gama" EntitySet="Gama" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_pais" Association="Self.Fk_pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Telefono" Association="Self.Fk_Telefono">
+            <End Role="Telefono" EntitySet="Telefono" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PearModelStoreContainer" CdmEntityContainer="PearEntities">
+          <EntitySetMapping Name="Color">
+            <EntityTypeMapping TypeName="PearModel.Color">
+              <MappingFragment StoreEntitySet="Color">
+                <ScalarProperty Name="Id_color" ColumnName="Id_color" />
+                <ScalarProperty Name="color1" ColumnName="color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gama">
+            <EntityTypeMapping TypeName="PearModel.Gama">
+              <MappingFragment StoreEntitySet="Gama">
+                <ScalarProperty Name="Id_gama" ColumnName="Id_gama" />
+                <ScalarProperty Name="gama1" ColumnName="gama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="PearModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="Id_pais" ColumnName="Id_pais" />
+                <ScalarProperty Name="pais1" ColumnName="pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registro">
+            <EntityTypeMapping TypeName="PearModel.Registro">
+              <MappingFragment StoreEntitySet="Registro">
+                <ScalarProperty Name="Id_registro" ColumnName="Id_registro" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefono">
+            <EntityTypeMapping TypeName="PearModel.Telefono">
+              <MappingFragment StoreEntitySet="Telefono">
+                <ScalarProperty Name="Id_Telefono" ColumnName="Id_Telefono" />
+                <ScalarProperty Name="gama" ColumnName="gama" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -9,11 +9,13 @@ namespace ExamenFinalIX.Controllers
 
     public class HomeController : Controller
     {
+        [RequireHttps]
         public ActionResult Index()
         {
             return View();
         }
-
+        
+        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -21,7 +23,16 @@ namespace ExamenFinalIX.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        [Authorize]
+        public ActionResult Registro()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Reporte()
         {
             ViewBag.Message = "Your contact page.";
 

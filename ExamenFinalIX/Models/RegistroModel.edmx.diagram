@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="79db6aab4a0a4a42aec4824ca9f769d8" Name="Diagram1" ZoomLevel="112">
+        <EntityTypeShape EntityType="PearModel.Color" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PearModel.Gama" Width="1.5" PointX="4.625" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PearModel.Pais" Width="1.5" PointX="2.875" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PearModel.Registro" Width="1.5" PointX="4.875" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PearModel.Telefono" Width="1.5" PointX="2.625" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="PearModel.Fk_color" ManuallyRouted="false" />
+        <AssociationConnector Association="PearModel.Fk_gama" ManuallyRouted="false" />
+        <AssociationConnector Association="PearModel.Fk_pais" ManuallyRouted="false" />
+        <AssociationConnector Association="PearModel.Fk_Telefono" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

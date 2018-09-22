@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace ExamenFinalIX
@@ -13,6 +14,10 @@ namespace ExamenFinalIX
 
             // Rutas de API web
             config.MapHttpAttributeRoutes();
+
+            //Soporte para JSON
+            config.Formatters.JsonFormatter.SupportedMediaTypes
+                .Add(new MediaTypeHeaderValue("text/html"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
