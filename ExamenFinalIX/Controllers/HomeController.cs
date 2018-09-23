@@ -38,5 +38,13 @@ namespace ExamenFinalIX.Controllers
 
             return View();
         }
+
+
+        public ActionResult ReporteGama()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }

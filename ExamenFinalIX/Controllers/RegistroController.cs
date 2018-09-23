@@ -1,120 +1,130 @@
-﻿using ExamenFinalIX.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Mvc;
+using ExamenFinalIX.Models;
+using ActionNameAttribute = System.Web.Http.ActionNameAttribute;
+using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
 
 namespace ExamenFinalIX.Controllers
 {
-    public class RegistroController : ApiController
+    public class RegistroController : Controller
     {
         private PearEntities db = new PearEntities();
 
-        //GET:  api/registo
-        public IQueryable<Registro> GetRegistro()
+        public ActionResult Index()
+
         {
-            return db.Registro;
+            var registro = db.Registro.Include(r => r.Telefono1);
+            return View(registro.ToList());
         }
 
-        //GET: api/registro/1
-        [ResponseType(typeof(Registro))]
-        public IHttpActionResult GetRegistro(int id)
+        // GET: RegistroMVC/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Registro registro = db.Registro.Find(id);
             if (registro == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-            return Ok(registro);
+            return View(registro);
         }
 
-        //PUT: api/Registro/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutRegistro(Registro registro)
+        // GET: RegistroMVC/Create
+        public ActionResult Create()
         {
-            //validar estado
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            //validar que venga el parametro id
-
-            // modificar
-            db.Entry(registro).State = EntityState.Modified;
-            try
-            {
-                //lo que yo haga aca si no funciona 
-                //guarda modicicación
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-
-
-            }
-            return StatusCode(HttpStatusCode.NoContent);
+            ViewBag.telefono = new SelectList(db.Telefono, "Id_Telefono", "Id_Telefono");
+            return View();
         }
 
-
-        //Post:api/alumno
-        [ResponseType(typeof(Registro))]
-        public IHttpActionResult PostResgistro(Registro registro)
+        // POST: RegistroMVC/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id_registro,FechaHora,telefono,total")] Registro registro)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
-            }
-            //Insersion
-            db.Registro.Add(registro);
-            try
-            {
+                db.Registro.Add(registro);
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            catch (Exception)
-            {
 
-                if (TableExists(registro.Id_registro))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            //return Ok();
-            return CreatedAtRoute("Registro", new { id = registro.Id_registro }, registro);
+            ViewBag.telefono = new SelectList(db.Telefono, "Id_Telefono", "Id_Telefono", registro.telefono);
+            return View(registro);
         }
 
-
-        //Delete: api/alumno/5
-        [ResponseType(typeof(Registro))]
-        public IHttpActionResult DeleteRegistro(int id)
+        // GET: RegistroMVC/Edit/5
+        public ActionResult Edit(int? id)
         {
-            Registro alumno = db.Registro.Find(id);
-            if (alumno == null)
+            if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            db.Registro.Remove(alumno);
-            try
+            Registro registro = db.Registro.Find(id);
+            if (registro == null)
             {
-                db.SaveChanges();
+                return HttpNotFound();
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            return Ok(alumno);
+            ViewBag.telefono = new SelectList(db.Telefono, "Id_Telefono", "Id_Telefono", registro.telefono);
+            return View(registro);
         }
 
-        //Hacer que se livere la base de datos
+        // POST: RegistroMVC/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id_registro,FechaHora,telefono,total")] Registro registro)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(registro).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.telefono = new SelectList(db.Telefono, "Id_Telefono", "Id_Telefono", registro.telefono);
+            return View(registro);
+        }
+
+        // GET: RegistroMVC/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Registro registro = db.Registro.Find(id);
+            if (registro == null)
+            {
+                return HttpNotFound();
+            }
+            return View(registro);
+        }
+
+        // POST: RegistroMVC/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Registro registro = db.Registro.Find(id);
+            db.Registro.Remove(registro);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -122,13 +132,6 @@ namespace ExamenFinalIX.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool TableExists(int id)
-        {
-            //Selecciona de Registros todas las filas que corresponda
-            //al id enviado como parametro
-            return db.Registro.Count(e => e.Id_registro == id) > 0;
         }
 
     }

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<ExamenFinalIX.Models.Registro>
 
 @{
-    ViewBag.Title = "REPORTE GENERAL";
+    ViewBag.Title = "REPORTE POR GAMA";
 }
 
-<h2>REPORTE GENERAL</h2>
+<h2>REPORTE POR GAMA</h2>
 
 
 <table class="table">
@@ -12,12 +12,8 @@
         <th>
             @Html.DisplayNameFor(model => model.Telefono1.gama)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono1.pais)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono1.color)
-        </th>
+
+
         <th>       
             @Html.DisplayNameFor(model => model.total)
         </th>
@@ -33,12 +29,6 @@
         <td>
 
             @Html.DisplayFor(modelItem => item.Telefono1.Gama1.gama1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono1.Color1.color1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono1.Pais1.pais1)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.total)

@@ -264,6 +264,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="imges\Base.png" />
     <Content Include="imges\pear.png" />
+    <Content Include="imges\phone2.png" />
     <Content Include="imges\udeo.png" />
     <Content Include="Models\RegistroModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -338,10 +339,10 @@
     <Content Include="Views\RegistroMVC\Edit.cshtml" />
     <Content Include="Views\RegistroMVC\Index.cshtml" />
     <Content Include="Views\Home\Reporte.cshtml" />
+    <Content Include="Views\Registro\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Registro\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

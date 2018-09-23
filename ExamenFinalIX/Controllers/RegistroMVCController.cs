@@ -21,6 +21,8 @@ namespace ExamenFinalIX.Controllers
             return View(registro.ToList());
         }
 
+
+
         // GET: RegistroMVC/Details/5
         public ActionResult Details(int? id)
         {
